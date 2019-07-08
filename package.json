@@ -1,0 +1,60 @@
+{
+  "name": "multi-level-form",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "antd": "^3.18.2",
+    "lodash": "^4.17.11",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-app-rewire-hot-loader": "^2.0.1",
+    "react-dom": "^16.8.6",
+    "react-hot-loader": "^4.8.8",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "3.0.1"
+  },
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "GENERATE_SOURCEMAP=false react-app-rewired build",
+    "test": "react-app-rewired test"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not ie <= 11",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "babel-plugin-import": "^1.11.2",
+    "customize-cra": "^0.2.12",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-loader": "^2.1.2",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-compat": "^3.1.1",
+    "eslint-plugin-html": "^5.0.5",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-markdown": "^1.0.0",
+    "eslint-plugin-react": "^7.13.0",
+    "eslint-plugin-react-hooks": "^1.6.0",
+    "http-proxy-middleware": "^0.19.1",
+    "less": "^3.9.0",
+    "less-loader": "^5.0.0",
+    "prettier": "1.17.1",
+    "prettier-eslint": "^8.8.2",
+    "react-app-rewired": "^2.1.3"
+  }
+}
