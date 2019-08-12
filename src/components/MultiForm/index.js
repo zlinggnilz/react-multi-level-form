@@ -96,11 +96,13 @@ class MultiLevelForm extends PureComponent {
       if (record.multi) {
         const attrKey = `formKey-${parentkey}-${record.key}-multiFormKey`;
         let recordKeyArr;
+
         if (type === 'setKey') {
-          recordKeyArr = [0];
-          for (let i = 1; i < (recordData || []).length; i++) {
-            recordKeyArr.push(i);
+          recordKeyArr = [];
+          for (let i = 0; i < (recordData || []).length; i++) {
+            recordData[i] && recordKeyArr.push(i);
           }
+          recordKeyArr = recordKeyArr.length ? recordKeyArr : [0];
           this.keyObj[attrKey] = recordKeyArr.length - 1;
           obj[attrKey] = recordKeyArr;
         } else {
