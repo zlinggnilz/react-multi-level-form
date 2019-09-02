@@ -12,7 +12,7 @@ class MultiLevelForm extends PureComponent {
     data: PropTypes.object,
     formAttr: PropTypes.arrayOf(
       PropTypes.shape({
-        key: PropTypes.string.isRequired,
+        key: PropTypes.string,
         label: PropTypes.any.isRequired,
         dataSource: PropTypes.oneOfType([PropTypes.func, PropTypes.array]),
         defaultValue: PropTypes.oneOfType([PropTypes.func, PropTypes.any]),

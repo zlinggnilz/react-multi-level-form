@@ -171,7 +171,7 @@ const CreateForm = props => {
 
 CreateForm.propTypes = {
   getFieldDecorator: PropTypes.func.isRequired,
-  name: PropTypes.string, // key值
+  name: PropTypes.string.isRequired, // key值
   defaultValue: PropTypes.any, // 默认值
   label: PropTypes.any, // label
   placeholder: PropTypes.string, // 默认跟label相同
@@ -186,7 +186,7 @@ CreateForm.propTypes = {
   type: PropTypes.string.isRequired,
   dataSource: PropTypes.arrayOf(
     PropTypes.shape({
-      key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      key: PropTypes.any.isRequired,
       label: PropTypes.string,
     })
   ), // select或radio-group的选项
