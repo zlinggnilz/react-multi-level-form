@@ -2,8 +2,8 @@ import React, { PureComponent } from 'react';
 import { Form, Button, Row, Col, Icon, Modal, Card } from 'antd';
 import { get, map, set, isEmpty } from 'lodash';
 import PropTypes from 'prop-types';
-import CreateForm from './CreateForm';
-import { formTrim } from './_utils/form';
+import CreateForm from '@/components/CreateForm';
+import { formTrim } from '@/components/_utils/form';
 import styles from './index.module.less';
 
 @Form.create()
