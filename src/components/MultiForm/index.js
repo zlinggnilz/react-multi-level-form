@@ -58,10 +58,10 @@ class MultiLevelForm extends PureComponent {
 
     e && e.preventDefault();
 
-    if (document && document.activeElement){
+    if (document && document.activeElement) {
       document.activeElement.blur();
     }
-    
+
     const arr = isEmpty(this.formItemKeysObj) ? this.formItemKeys : this.formItemKeys.filter(k => this.getFormItemShow(k));
 
     form.validateFieldsAndScroll(arr, { scroll: { offsetTop: 100 } }, (err, values) => {
@@ -178,16 +178,16 @@ class MultiLevelForm extends PureComponent {
   getFieldKey = (key = '', pk) => (typeof key === 'function' ? key(pk) || '' : key).trim();
 
   getFormItem(record, parentkey = '', ark = null) {
-    const { form, data, col: responsive } = this.props;
+    const { form, data, col: formCol } = this.props;
     const { getFieldDecorator } = form;
     const recordkey = `${parentkey}[${this.getFieldKey(record.key, parentkey)}]${ark !== null ? `[${ark}]` : ''}`;
     const getItem = (item, itemkey, itemParentkey) => {
-      const { label, key, defaultValue, required, dataSource = [], style, shouldRender, onlyLabel, ...rest } = item;
+      const { label, key, defaultValue, required, dataSource = [], style, shouldRender, onlyLabel, col: itemCol, ...rest } = item;
 
-      const col = item.col || responsive;
+      const col = itemCol || formCol;
 
       let showItem = true;
-      if (shouldRender !== undefined) {
+      if ('shouldRender' in item) {
         showItem = typeof shouldRender === 'function' ? shouldRender(itemkey, itemParentkey) : shouldRender;
       }
 
@@ -204,16 +204,10 @@ class MultiLevelForm extends PureComponent {
       }
 
       const v = get(data, itemkey);
-      const dv =
-        typeof defaultValue === 'function'
-          ? defaultValue(v, get(data, itemParentkey), itemParentkey)
-          : v !== undefined && v !== null
-          ? v
-          : defaultValue;
+      const dv = typeof defaultValue === 'function' ? defaultValue(v, get(data, itemParentkey), itemParentkey) : v != null ? v : defaultValue;
       const dataSourceArr = typeof dataSource === 'function' ? dataSource(itemkey, itemParentkey) : dataSource;
 
       const ifRequired = typeof required === 'function' ? required(itemkey, itemParentkey) : required;
-
 
       this.formItemKeys.push(itemkey);
 

@@ -52,15 +52,15 @@ class CommonForm extends PureComponent {
   };
 
   getFormItem = item => {
-    const { form, data, col } = this.props;
+    const { form, data, col:formCol } = this.props;
     const { getFieldDecorator } = form;
 
-    const { onlyLabel, label, key, defaultValue, style = {}, required, shouldRender, hidden, ...rest } = item;
+    const { onlyLabel, label, key, defaultValue, style = {}, required, shouldRender, hidden,col, ...rest } = item;
 
-    const responsive = item.col || col;
+    const itemCol = col || formCol;
 
     let showItem = true;
-    if (shouldRender !== undefined) {
+    if ('shouldRender' in item) {
       showItem = typeof shouldRender === 'function' ? shouldRender(key) : shouldRender;
     }
 
@@ -69,13 +69,13 @@ class CommonForm extends PureComponent {
     }
 
     let itemHidden = false;
-    if (hidden !== undefined) {
+    if ('hidden' in item) {
       itemHidden = typeof hidden === 'function' ? hidden(key) : hidden;
     }
 
     if (onlyLabel) {
       return (
-        <Col {...responsive} key={`col-label-${item.label}`} style={style}>
+        <Col {...itemCol} key={`col-label-${item.label}`} style={style}>
           <div className={`${styles.onlyLabel} flex align-middle`}>{label}</div>
         </Col>
       );
@@ -89,12 +89,12 @@ class CommonForm extends PureComponent {
     }
 
     const v = get(data, key);
-    const dv = typeof defaultValue === 'function' ? defaultValue(v, key) : v !== undefined && v !== null ? v : defaultValue;
+    const dv = typeof defaultValue === 'function' ? defaultValue(v, key) :  v != null ? v : defaultValue;
 
     const ifRequired = typeof required === 'function' ? required(key) : required;
 
     return (
-      <Col {...responsive} key={`col${key}`} style={{ display: itemHidden ? 'none' : '', ...style }}>
+      <Col {...itemCol} key={`col${key}`} style={{ display: itemHidden ? 'none' : '', ...style }}>
         <CreateForm
           getFieldDecorator={getFieldDecorator}
           name={key}

@@ -1,6 +1,7 @@
-import React from 'react';
+import React ,{memo} from 'react';
 import { Form, Radio, Checkbox, Input, Select, InputNumber } from 'antd';
 import PropTypes from 'prop-types';
+import { isNaN } from 'lodash';
 
 const Textarea = Input.TextArea;
 
@@ -10,7 +11,17 @@ const { Option } = Select;
 const RadioGroup = Radio.Group;
 const CheckboxGroup = Checkbox.Group;
 
-const CreateForm = props => {
+const getDv = defaultValue => {
+  if (defaultValue && typeof defaultValue === 'string') {
+    const v = Number(defaultValue);
+    if (!isNaN(v)) {
+      return v;
+    }
+  }
+  return defaultValue;
+};
+
+const CreateForm = memo(props => {
   const {
     getFieldDecorator,
     required,
@@ -27,7 +38,7 @@ const CreateForm = props => {
     parentkey,
   } = props;
 
-  let { placeholder, rules, type, defaultValue } = props;
+  let { placeholder, rules, type='text', defaultValue } = props;
 
   const key = name;
   placeholder = placeholder || label;
@@ -127,7 +138,7 @@ const CreateForm = props => {
 
         case 'int':
           setRule('integer', 'This field should be an integer', { validator: (r, v, cb) => (!v || Number.isInteger(v) ? cb() : cb(true)) });
-          defaultValue = defaultValue !== undefined ? Number(defaultValue) : defaultValue;
+          defaultValue = getDv(defaultValue);
           field = <InputNumber min={0} precision={0} style={{ width: '100%' }} placeholder={placeholder} {...commonProp} />;
           break;
 
@@ -136,7 +147,7 @@ const CreateForm = props => {
           setRule('number', 'This field should be a number', {
             validator: (r, v, cb) => (!v || typeof v === 'number' ? cb() : cb(true)),
           });
-          defaultValue = defaultValue !== undefined ? Number(defaultValue) : defaultValue;
+          defaultValue = getDv(defaultValue);
           field = <InputNumber min={0} style={{ width: '100%' }} placeholder={placeholder} {...commonProp} />;
           break;
 
@@ -167,7 +178,7 @@ const CreateForm = props => {
     );
   }
   return createField();
-};
+});
 
 CreateForm.propTypes = {
   getFieldDecorator: PropTypes.func.isRequired,
@@ -183,7 +194,6 @@ CreateForm.propTypes = {
   fieldProps: PropTypes.object, // field的props
   formProps: PropTypes.object, // field的props
   rules: PropTypes.array, // 验证rules
-  type: PropTypes.string.isRequired,
   dataSource: PropTypes.arrayOf(
     PropTypes.shape({
       key: PropTypes.any.isRequired,
@@ -194,7 +204,6 @@ CreateForm.propTypes = {
   parentkey: PropTypes.string,
 };
 CreateForm.defaultProps = {
-  type: 'text',
   label: '',
   required: true,
   showItem: true,
