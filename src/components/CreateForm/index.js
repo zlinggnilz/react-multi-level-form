@@ -1,4 +1,4 @@
-import React ,{memo} from 'react';
+import React from 'react';
 import { Form, Radio, Checkbox, Input, Select, InputNumber } from 'antd';
 import PropTypes from 'prop-types';
 import { isNaN } from 'lodash';
@@ -21,7 +21,7 @@ const getDv = defaultValue => {
   return defaultValue;
 };
 
-const CreateForm = memo(props => {
+const CreateForm = props => {
   const {
     getFieldDecorator,
     required,
@@ -178,7 +178,7 @@ const CreateForm = memo(props => {
     );
   }
   return createField();
-});
+};
 
 CreateForm.propTypes = {
   getFieldDecorator: PropTypes.func.isRequired,
